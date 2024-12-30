@@ -1,0 +1,31 @@
+.theme-switch-btn {
+    position: fixed;
+    bottom: 1rem;
+    border-radius: 50%;
+    width: auto;
+    right: 1rem;
+}
+
+.item-options {
+    width: auto !important;
+    margin-bottom: 0rem !important;
+    text-align: center;
+}
+
+.item-options>summary {
+    width: auto !important;
+    margin-bottom: 0rem !important;
+    border: 0px !important;
+}
+
+.item-options>summary::after {
+    display: none !important;
+}
+
+.text-green {
+    color: #388e3c !important;
+}
+
+.text-red {
+    color: #c62828 !important;
+}

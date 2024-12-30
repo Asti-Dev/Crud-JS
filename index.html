@@ -1,0 +1,95 @@
+<!doctype html>
+<html x-data="{webPageTheme : true }" id="webPageTheme" :data-theme="webPageTheme ? 'dark' : 'light'" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pico/pico.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>Lista de compras</title>
+</head>
+
+<body>
+
+  <main class="container">
+    <section>
+      <hgroup>
+        <h1>Lista de Compras</h1>
+        <h2>Proyecto picocss/alpinejs</h2>
+      </hgroup>
+      <button
+       id="switchBtn" 
+       class="contrast switcher theme-switch-btn" 
+       @click="webPageTheme = ! webPageTheme"  
+       x-text="webPageTheme ? '⚫' : '⚪'"
+      ></button>
+
+      <div class="grid" x-data="crudTable">
+        <article>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="item in items" :key="item.id">
+                <tr>
+                  <th x-text="item.id" scope="row"></th>
+                  <td>
+                    <small x-show="!item.showInput" x-text="item.name"></small>
+                    <input x-show="item.showInput" type="text" x-model="item.name" id="name" name="name" placeholder="Item name" required>
+                  </td>
+                  <td>
+                    <small x-show="!item.showInput">S/.</small>
+                    <b x-show="!item.showInput" x-text="item.cost"></b>
+                    <input x-show="item.showInput" type="number" x-model="item.cost" id="cost" name="cost" placeholder="Item cost" required>
+                  </td>
+                  <td>
+                    <details class="item-options" role="list" :open="editToggle">
+                      <summary aria-haspopup="listbox" class="contrast outline" role="button">
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                      </summary>
+                      <ul role="listbox">
+                        <li><a class="text-green"  @click="showInput(item.id)" >Edit</a></li>
+                        <li><a class="text-red" @click="deleteItem(item.id)">Delete</a></li>
+                      </ul>
+                    </details>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="col">#</th>
+                <td scope="col">Total</td>
+                <td colspan="2">S/.<b x-text="totalCost"></b></td>
+              </tr>
+            </tfoot>
+          </table>
+        </article>
+        <article>
+          <form>
+            <label for="name">Item name</label>
+            <input type="text" x-model="name" id="name" name="name" placeholder="Item name" required>
+
+            <label for="cost">Item cost</label>
+            <input type="number" x-model="cost" step="2" id="cost" name="cost" placeholder="Item cost" required>
+
+            <button @click="addItem" type="submit">Submit</button>
+
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script src="js/index.js"></script>
+</body>
+
+</html>
